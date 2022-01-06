@@ -14,12 +14,15 @@ class CreateInvoicesTable extends Migration
     public function up()
     {
         Schema::create('invoices', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('invoices_number');
+            $table->id();
+            $table->string('invoice_number');
             $table->date('invoices_date');
             $table->date('due_date');
             $table->string('product');
-            $table->string('section');
+            $table->bigInteger( 'section_id' )->unsigned();
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
+            $table->decimal('Amount_collection',8,2)->nullable();;
+            $table->decimal('Amount_Commission',8,2);
             $table->string('discount');
             $table->string('rate_vat');
             $table->decimal('value_vat',8,2);
@@ -27,7 +30,7 @@ class CreateInvoicesTable extends Migration
             $table->string('status',50);
             $table->integer('status_value');
             $table->text('note')->nullable();
-            $table->string('user');
+            $table->date('Payment_Date')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

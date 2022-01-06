@@ -15,8 +15,9 @@ class ProductsController extends Controller
      */
     public function index()
     {
+        $products = products::all();
         $sections = sections::all();
-        return view('products.products',compact('sections'));
+        return view('products.products',compact('sections','products'));
     }
 
     /**
@@ -37,8 +38,17 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'product_name' => 'required|unique:products|max:255',
+            'description' => 'required'
+        ],[
+            'product_name.required' =>'يرجي ادخال اسم المنتج',
+            'product_name.unique' =>'اسم القسم مسجل مسبقا',
+            'description.required'=>'يجب اضافة الملاحظة'
+        ]);
+
         Products::create([
-            'product_name' => $request->Product_name,
+            'product_name' => $request->product_name,
             'section_id' => $request->section_id,
             'description' => $request->description,
         ]);
@@ -77,7 +87,19 @@ class ProductsController extends Controller
      */
     public function update(Request $request, products $products)
     {
-        //
+
+        $id = sections::where('section_name', $request->section_name)->first()->id;
+
+       $products = products::findOrFail($request->pro_id);
+
+       $products->update([
+       'product_name' => $request->product_name,
+       'description' => $request->description,
+       'section_id' => $id,
+       ]);
+
+       session()->flash('edit', 'تم تعديل المنتج بنجاح');
+       return back();
     }
 
     /**
@@ -86,8 +108,11 @@ class ProductsController extends Controller
      * @param  \App\products  $products
      * @return \Illuminate\Http\Response
      */
-    public function destroy(products $products)
+    public function destroy(request $request)
     {
-        //
+        $id = $request->pro_id;
+        products::find($id)->delete();
+        session()->flash('delete','تم حذف القسم بنجاح');
+        return redirect('/products');
     }
 }

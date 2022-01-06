@@ -30,10 +30,9 @@
                             <div class="card mg-b-20">
                                 <div class="card-header pb-0">
                                     <div class="d-flex justify-content-between">
-                                        <h4 class="card-title mg-b-0">Bordered Table</h4>
-                                        <i class="mdi mdi-dots-horizontal text-gray"></i>
+                                <a class="modal-effect btn btn-outline-primary btn-block" href="invoices/create">اضافة منتج</a>
+                                        <br><br>
                                     </div>
-                                    <p class="tx-12 tx-gray-500 mb-2">Example of Valex Bordered Table.. <a href="">Learn more</a></p>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -55,20 +54,26 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                @php
+                                                    $i = 0 ;
+                                                @endphp
+                                                @foreach ($invoices as $invoice)
                                                 <tr>
-                                                    <td>Tiger Nixon</td>
-                                                    <td>System Architect</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>61</td>
-                                                    <td>2011/04/25</td>
-                                                    <td>$320,800</td>
-                                                    <td>Tiger Nixon</td>
-                                                    <td>System Architect</td>
-                                                    <td>Edinburgh</td>
-                                                    <td>61</td>
-                                                    <td>2011/04/25</td>
-                                                    <td>$320,800</td>
+                                                    <td>{{$i++}}</td>
+                                                    <td>{{$invoices->invoices_number}}</td>
+                                                    <td>{{$invoices->invoices_date}}</td>
+                                                    <td>{{$invoices->due_date}}</td>
+                                                    <td>{{$invoices->product}}</td>
+                                                    <td>{{$invoices->section}}</td>
+                                                    <td>{{$invoices->discount}}</td>
+                                                    <td>{{$invoices->rate_vat}}</td>
+                                                    <td>{{$invoices->value_vat}}</td>
+                                                    <td>{{$invoices->total}}</td>
+                                                    <td>{{$invoices->status}}</td>
+                                                    <td>{{$invoices->note}}</td>
                                                 </tr>
+                                                @endforeach
+
                                             </tbody>
                                         </table>
                                     </div>
