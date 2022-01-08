@@ -30,7 +30,7 @@
                             <div class="card mg-b-20">
                                 <div class="card-header pb-0">
                                     <div class="d-flex justify-content-between">
-                                <a class="modal-effect btn btn-outline-primary btn-block" href="invoices/create">اضافة منتج</a>
+                                <a class="modal-effect btn btn-outline-primary btn-block" href="invoices/create">اضافة فاتورة</a>
                                         <br><br>
                                     </div>
                                 </div>
@@ -60,17 +60,17 @@
                                                 @foreach ($invoices as $invoice)
                                                 <tr>
                                                     <td>{{$i++}}</td>
-                                                    <td>{{$invoices->invoices_number}}</td>
-                                                    <td>{{$invoices->invoices_date}}</td>
-                                                    <td>{{$invoices->due_date}}</td>
-                                                    <td>{{$invoices->product}}</td>
-                                                    <td>{{$invoices->section}}</td>
-                                                    <td>{{$invoices->discount}}</td>
-                                                    <td>{{$invoices->rate_vat}}</td>
-                                                    <td>{{$invoices->value_vat}}</td>
-                                                    <td>{{$invoices->total}}</td>
-                                                    <td>{{$invoices->status}}</td>
-                                                    <td>{{$invoices->note}}</td>
+                                                    <td>{{$invoice->invoice_number}}</td>
+                                                    <td>{{$invoice->invoices_date}}</td>
+                                                    <td>{{$invoice->due_date}}</td>
+                                                    <td>{{$invoice->product}}</td>
+                                                    <td>{{$invoice->section->section_name}}</td>
+                                                    <td>{{$invoice->discount}}</td>
+                                                    <td>{{$invoice->rate_vat}}</td>
+                                                    <td>{{$invoice->value_vat}}</td>
+                                                    <td>{{$invoice->total}}</td>
+                                                    <td>{{$invoice->status}}</td>
+                                                    <td>{{$invoice->note}}</td>
                                                 </tr>
                                                 @endforeach
 

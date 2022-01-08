@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\DB;
 
 use App\sections;
 use App\invoices;
@@ -38,7 +39,30 @@ class InvoicesController extends Controller
      */
     public function store(Request $request)
     {
-        return $request;
+        $validatedData = $request->validate([
+            'invoice_number' => 'unique:invoices',
+        ],[
+            'invoice_number.unique' =>'رقم الفاتورة مسجل مسبقا',
+        ]);
+        invoices::create([
+            'invoice_number'=>$request->invoice_number,
+            'invoices_date'=>$request->invoices_date,
+            'due_date'=>$request->due_date,
+            'product'=>$request->product,
+            'section_id'=>$request->section,
+            'amount_collection'=>$request->amount_collection,
+            'amount_commission'=>$request->amount_commission,
+            'discount'=>$request->discount,
+            'rate_vat'=>$request->rate_vat,
+            'value_vat'=>$request->value_vat,
+            'total'=>$request->total,
+            'status'=>'غير مدفوع',
+            'status_value'=>2,
+            'note'=>$request->note,
+            'invoice_number'=>$request->invoice_number,
+        ]);
+        session()->flash('add', 'تم اضافة الفاتورة بنجاح ');
+        return redirect()->back();
     }
 
     /**
@@ -84,5 +108,12 @@ class InvoicesController extends Controller
     public function destroy(invoices $invoices)
     {
         //
+    }
+
+    public function getproducts($id)
+    {
+        $products = DB::table("products")->where("section_id", $id)->pluck("product_name", "id");
+
+        return json_encode($products);
     }
 }

@@ -68,7 +68,8 @@ class SectionsController extends Controller
      */
     public function show(sections $sections)
     {
-        //
+        $sections = sections::all();
+        return view(compact('sections'));
     }
 
     /**

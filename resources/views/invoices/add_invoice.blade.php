@@ -29,13 +29,22 @@
 @endsection
 @section('content')
 
-    @if (session()->has('Add'))
+    @if (session()->has('add'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>{{ session()->get('Add') }}</strong>
+            <strong>{{ session()->get('add') }}</strong>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
         </div>
+    @endif
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
     @endif
 
     <!-- row -->
@@ -74,7 +83,7 @@
                         <div class="row">
                             <div class="col">
                                 <label for="inputName" class="control-label">القسم</label>
-                                <select name="Section" class="form-control SlectBox" onclick="console.log($(this).val())"
+                                <select name="section" class="form-control SlectBox" onclick="console.log($(this).val())"
                                     onchange="console.log('change is firing')">
                                     <!--placeholder-->
                                     <option value="" selected disabled>حدد القسم</option>
@@ -106,14 +115,14 @@
                             <div class="col">
                                 <label for="inputName" class="control-label">مبلغ العمولة</label>
                                 <input type="text" class="form-control form-control-lg" id="amount_commission"
-                                    name="Amount_Commission" title="يرجي ادخال مبلغ العمولة "
+                                    name="amount_commission" title="يرجي ادخال مبلغ العمولة "
                                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                     required>
                             </div>
 
                             <div class="col">
                                 <label for="inputName" class="control-label">الخصم</label>
-                                <input type="text" class="form-control form-control-lg" id="Discount" name="discount"
+                                <input type="text" class="form-control form-control-lg" id="discount" name="discount"
                                     title="يرجي ادخال مبلغ الخصم "
                                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                                     value=0 required>
@@ -121,7 +130,7 @@
 
                             <div class="col">
                                 <label for="inputName" class="control-label">نسبة ضريبة القيمة المضافة</label>
-                                <select name="rate_vat" id="Rate_VAT" class="form-control" onchange="myFunction()">
+                                <select name="rate_vat" id="rate_vat" class="form-control" onchange="myFunction()">
                                     <!--placeholder-->
                                     <option value="" selected disabled>حدد نسبة الضريبة</option>
                                     <option value=" 5%">5%</option>
@@ -136,12 +145,12 @@
                         <div class="row">
                             <div class="col">
                                 <label for="inputName" class="control-label">قيمة ضريبة القيمة المضافة</label>
-                                <input type="text" class="form-control" id="Value_VAT" name="value_vat" readonly>
+                                <input type="text" class="form-control" id="value_vat" name="value_vat" readonly>
                             </div>
 
                             <div class="col">
                                 <label for="inputName" class="control-label">الاجمالي شامل الضريبة</label>
-                                <input type="text" class="form-control" id="Total" name="total" readonly>
+                                <input type="text" class="form-control" id="total" name="total" readonly>
                             </div>
                         </div>
 
@@ -244,10 +253,10 @@
     <script>
         function myFunction() {
 
-            var Amount_Commission = parseFloat(document.getElementById("Amount_Commission").value);
-            var Discount = parseFloat(document.getElementById("Discount").value);
-            var Rate_VAT = parseFloat(document.getElementById("Rate_VAT").value);
-            var Value_VAT = parseFloat(document.getElementById("Value_VAT").value);
+            var Amount_Commission = parseFloat(document.getElementById("amount_commission").value);
+            var Discount = parseFloat(document.getElementById("discount").value);
+            var Rate_VAT = parseFloat(document.getElementById("rate_vat").value);
+            var Value_VAT = parseFloat(document.getElementById("value_vat").value);
 
             var Amount_Commission2 = Amount_Commission - Discount;
 
@@ -265,9 +274,9 @@
 
                 sumt = parseFloat(intResults2).toFixed(2);
 
-                document.getElementById("Value_VAT").value = sumq;
+                document.getElementById("value_vat").value = sumq;
 
-                document.getElementById("Total").value = sumt;
+                document.getElementById("total").value = sumt;
 
             }
 
