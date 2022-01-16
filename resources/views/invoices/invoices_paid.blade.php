@@ -42,7 +42,7 @@
     @endif
 
 
-    @if (session()->has('Status_Update'))
+    @if (session()->has('status_update'))
         <script>
             window.onload = function() {
                 notif({
@@ -90,8 +90,11 @@
                                 $i = 0;
                                 @endphp
                                 @foreach ($invoices as $invoice)
+                                    @php
+                                    $i++
+                                    @endphp
                                     <tr>
-                                        <td>{{ ++$i }}</td>
+                                        <td>{{ $i }}</td>
                                         <td>{{ $invoice->invoice_number }} </td>
                                         <td>{{ $invoice->invoices_date }}</td>
                                         <td>{{ $invoice->due_date }}</td>
@@ -104,7 +107,7 @@
                                         <td>{{ $invoice->value_vat }}</td>
                                         <td>{{ $invoice->total }}</td>
                                         <td>
-                                            @if ($invoice->Value_Status == 1)
+                                            @if ($invoice->value_status == 1)
                                                 <span class="text-success">{{ $invoice->status }}</span>
                                             @elseif($invoice->value_status == 2)
                                                 <span class="text-danger">{{ $invoice->status }}</span>

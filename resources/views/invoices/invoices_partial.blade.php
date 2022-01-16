@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    الفواتير المدفوعة
+    الفواتير المدفوعة جزئيا
 @stop
 @section('css')
     <!-- Internal Data table css -->
@@ -19,7 +19,7 @@
         <div class="my-auto">
             <div class="d-flex">
                 <h4 class="content-title mb-0 my-auto">الفواتير</h4><span class="text-muted mt-1 tx-13 mr-2 mb-0">/ الفواتير
-                    المدفوعة
+                    المدفوعة جزئيا
                 </span>
             </div>
         </div>
@@ -42,7 +42,7 @@
     @endif
 
 
-    @if (session()->has('Status_Update'))
+    @if (session()->has('status_update'))
         <script>
             window.onload = function() {
                 notif({
@@ -90,8 +90,11 @@
                                 $i = 0;
                                 @endphp
                                 @foreach ($invoices as $invoice)
+                                    @php
+                                    $i++
+                                    @endphp
                                     <tr>
-                                        <td>{{ ++$i }}</td>
+                                        <td>{{ $i }}</td>
                                         <td>{{ $invoice->invoice_number }} </td>
                                         <td>{{ $invoice->invoices_date }}</td>
                                         <td>{{ $invoice->due_date }}</td>
@@ -104,7 +107,7 @@
                                         <td>{{ $invoice->value_vat }}</td>
                                         <td>{{ $invoice->total }}</td>
                                         <td>
-                                            @if ($invoice->Value_Status == 1)
+                                            @if ($invoice->value_status == 1)
                                                 <span class="text-success">{{ $invoice->status }}</span>
                                             @elseif($invoice->value_status == 2)
                                                 <span class="text-danger">{{ $invoice->status }}</span>
@@ -131,7 +134,7 @@
                                                         الفاتورة</a>
 
                                                     <a class="dropdown-item"
-                                                        href="{{ URL::route('status_show', [$invoice->id]) }}"><i
+                                                        href="{{ URL::route('Status_show', [$invoice->id]) }}"><i
                                                             class=" text-success fas
                                                                                                                                     fa-money-bill"></i>&nbsp;&nbsp;تغير
                                                         حالة

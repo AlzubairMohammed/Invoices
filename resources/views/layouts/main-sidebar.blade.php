@@ -49,12 +49,14 @@
                     </svg><span class="side-menu__label">الفواتير</span><i class="angle fe fe-chevron-down"></i></a>
                 <ul class="slide-menu">
                     <li><a class="slide-item" href="{{ url('/' . ($page = 'invoices')) }}">قائمة الفواتير</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'chart-flot')) }}">الفواتير المدفوعة</a>
+                    <li><a class="slide-item" href="{{ url('/' . ($page = 'invoicesPaid')) }}">الفواتير المدفوعة</a>
                     </li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'chart-chartjs')) }}">الفواتير الغير
+                    <li><a class="slide-item" href="{{ url('/' . ($page = 'invoicesUnPaid')) }}">الفواتير الغير
                             مدفوعة</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'chart-echart')) }}">الوافتير المدفوعة
+                    <li><a class="slide-item" href="{{ url('/' . ($page = 'invoicesPartial')) }}">الوافتير المدفوعة
                             جزئيا</a></li>
+                    <li><a class="slide-item" href="{{ url('/' . ($page = 'archive')) }}">ارشيف الفواتير</a></li>
+
                 </ul>
             </li>
             <li class="side-item side-item-category">التقارير</li>
@@ -116,7 +118,6 @@
                     </svg><span class="side-menu__label">الاعدادات</span><i class="angle fe fe-chevron-down"></i></a>
                 <ul class="slide-menu">
                     <li><a class="slide-item" href="{{ url('/' . ($page = 'sections')) }}">الاقسام</a></li>
-                    <li><a class="slide-item" href="{{ url('/' . ($page = 'profile')) }}">اضافة قسم</a></li>
                     <li><a class="slide-item" href="{{ url('/' . ($page = 'products')) }}">المنتجات</a></li>
                 </ul>
             </li>
