@@ -26,7 +26,15 @@ Route::get('/invoicesUnPaid', 'InvoicesController@invoicesUnPaid');
 
 Route::get('/invoicesPartial', 'InvoicesController@invoicesPartial');
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/customersReport', 'CustomersReportController@customersReport');
+
+Route::post('/customersSearch', 'CustomersReportController@customersSearch');
+
+Route::get('invoicesReport', 'InvoicesReportController@index');
+
+Route::post('invoicesSearch', 'InvoicesReportController@invoicesSearch');
+
+Route::get('/home', 'HomeController@index')->name('home');
 
 Route::resource('invoices','InvoicesController');
 
